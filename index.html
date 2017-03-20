@@ -56,21 +56,21 @@
 // 				socket.emit('keypress', textArea.innerHTML);
 // 			});
 			
-			textArea.addEventListener('keypress', function(data){
-				console.log('keypress', arguments);
-				socket.broadcast.emit('keypress', textArea.innerHTML);
-			});
+// 			textArea.addEventListener('keypress', function(data){
+// 				console.log('keypress', arguments);
+// 				socket.broadcast.emit('keypress', textArea.innerHTML);
+// 			});
 
-			textArea.addEventListener('keypress', function(e){
-				if (e.keyCode === 13) {
+			textArea.addEventListener('keypress', function(/*e*/){
+// 				if (e.keyCode === 13) {
 					var data = textArea.innerHTML;
-        			console.log('data', data);
+        				console.log('data', data);
 					submit.innerHTML = data;
 					textArea.innerHTML = data;
 					console.log(data);
 					console.log(arguments);
 					socket.emit('keypress', data);
-    			}
+//     			}
 			});
 
 			socket.on('broadcast', function(data){
