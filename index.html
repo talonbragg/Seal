@@ -79,6 +79,10 @@
 			socket.on('connected', function(data) {
 				num.innerHTML = data.description;
 			});
+			
+			socket.on('disconnected', function(data) {
+				num.innerHTML = data.description;
+			});
 		</script>
 	</body>
 </html>
