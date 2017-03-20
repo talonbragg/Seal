@@ -51,7 +51,7 @@
 			var btn = document.getElementById('btn');
 			var num = document.getElementById('number');
 
-			textArea.addEventListener('keydown', function(data){
+			textArea.addEventListener('keypress', function(data){
 				console.log('keypress', arguments);
 				socket.broadcast.emit('keypress', textArea.innerHTML);
 			});
