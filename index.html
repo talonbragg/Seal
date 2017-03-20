@@ -1,0 +1,73 @@
+<html>
+	<head>
+		<title>Seal - Collaborative Writing Tool</title>
+		<style>
+			body {
+				font-family: Arial;
+				margin-left:100px;
+			}
+			h1 {
+				font-size: 90px;
+			}
+			h2 {
+				font-size: 70px;
+			}
+			p {
+				font-size: 30px;
+			}
+			.button {
+    			background-color: #008CBA; /* Green */
+    			border: none;
+    			color: white;
+    			padding: 15px 32px;
+    			text-align: center;
+    			text-decoration: none;
+    			display: inline-block;
+    			font-size: 16px;
+    			margin: 4px 2px;
+    			cursor: pointer;
+			}
+		</style>
+	</head>
+	<body>
+		<h1>Seal</h1>
+		<p>The Collaborative Writing Tool</p>
+		<div id="textArea" contenteditable="true">Type here</div>
+		<br />
+		<div id="submit" style="font-weight:bold;"></div>
+		<br />
+		<button id="btn" class="button">Submit</button>
+		<script src="socket.io/socket.io.js"></script>
+		<script>
+			var socket = io();
+			var textArea = document.getElementById('textArea');
+			var submit = document.getElementById('submit');
+			var btn = document.getElementById('btn');
+
+			btn.addEventListener('click', function(data){
+				console.log('keypress', arguments);
+				socket.emit('keypress', textArea.innerHTML);
+			});
+
+			textArea.addEventListener('keypress', function(e){
+				if (e.keyCode === 13) {
+					var data = textArea.innerHTML;
+        			console.log('data', data);
+					submit.innerHTML = data;
+					textArea.innerHTML = data;
+					console.log(data);
+					console.log(arguments);
+					socket.emit('keypress', data);
+    			}
+			});
+
+			socket.on('broadcast', function(data){
+				console.log('data', data);
+				data = JSON.stringify(data.string);
+				submit.innerHTML = data;
+				textArea.innerHTML = data;
+				console.log(data);
+			});
+		</script>
+	</body>
+</html>
