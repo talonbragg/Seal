@@ -10,9 +10,8 @@ app.get('/', function(req, res) {
 
 io.on('connection', function(socket){
 	//Socket Functions Go Here
-	
-	//User Joining And Disconnection Handling
 	users += 1;
+	io.sockets.emit('connected', {description: users});
 	console.log(users + ' ' + 'users connected.');
 	socket.on('disconnect', function() {
 		users -= 1;

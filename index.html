@@ -27,6 +27,11 @@
     			margin: 4px 2px;
     			cursor: pointer;
 			}
+			#rightcorner {
+					top:2%;
+					right:2%;
+					position: fixed;
+			}
 		</style>
 	</head>
 	<body>
@@ -37,12 +42,14 @@
 		<div id="submit" style="font-weight:bold;"></div>
 		<br />
 		<button id="btn" class="button">Submit</button>
+		<div id="rightcorner">There are <span id="number"></span> Users online.</div>
 		<script src="socket.io/socket.io.js"></script>
 		<script>
 			var socket = io();
 			var textArea = document.getElementById('textArea');
 			var submit = document.getElementById('submit');
 			var btn = document.getElementById('btn');
+			var num = doucument.getElementById('number');
 
 			btn.addEventListener('click', function(data){
 				console.log('keypress', arguments);
@@ -67,6 +74,10 @@
 				submit.innerHTML = data;
 				textArea.innerHTML = data;
 				console.log(data);
+			});
+
+			socket.on('connected', function(data) {
+				num.innerHTML = data.description;
 			});
 		</script>
 	</body>
